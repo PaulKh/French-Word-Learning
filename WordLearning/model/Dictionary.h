@@ -2,7 +2,7 @@
 //  Dictionary.h
 //  WordLearning
 //
-//  Created by Khvorostov on 16/03/15.
+//  Created by Khvorostov on 17/03/15.
 //  Copyright (c) 2015 Khvorostov. All rights reserved.
 //
 
@@ -14,6 +14,7 @@
 @interface Dictionary : NSManagedObject
 
 @property (nonatomic, retain) NSString * name;
+@property (nonatomic, retain) NSString * avatarSource;
 @property (nonatomic, retain) NSSet *wordTranslationTuple;
 @end
 

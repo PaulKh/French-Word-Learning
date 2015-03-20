@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="6751" systemVersion="14C1510" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="Dictionary" representedClassName="Dictionary" syncable="YES">
+        <attribute name="avatarSource" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="wordTranslationTuple" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="WordTranslationTuple" inverseName="dictionary" inverseEntity="WordTranslationTuple" syncable="YES"/>
     </entity>
@@ -8,21 +9,22 @@
         <attribute name="language" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="word" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="translations" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="WordTranslationTuple" inverseName="translations" inverseEntity="WordTranslationTuple" syncable="YES"/>
+        <relationship name="tuple" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="WordTranslationTuple" inverseName="word" inverseEntity="WordTranslationTuple" syncable="YES"/>
     </entity>
     <entity name="WordTranslationTuple" representedClassName="WordTranslationTuple" syncable="YES">
         <attribute name="audioSource" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="createdAt" optional="YES" attributeType="Date" syncable="YES"/>
-        <attribute name="lastTrainingDate" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="lastTrainingDay" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="numberOfTrainings" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="type" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="wordDescription" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="dictionary" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Dictionary" inverseName="wordTranslationTuple" inverseEntity="Dictionary" syncable="YES"/>
         <relationship name="translations" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Word" inverseName="translations" inverseEntity="Word" syncable="YES"/>
-        <relationship name="word" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Word" syncable="YES"/>
+        <relationship name="word" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Word" inverseName="tuple" inverseEntity="Word" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Dictionary" positionX="-7272" positionY="-2322" width="128" height="73"/>
-        <element name="Word" positionX="-6743" positionY="-2304" width="128" height="88"/>
+        <element name="Dictionary" positionX="-7272" positionY="-2322" width="128" height="88"/>
+        <element name="Word" positionX="-6743" positionY="-2304" width="128" height="103"/>
         <element name="WordTranslationTuple" positionX="-7047" positionY="-2322" width="128" height="178"/>
     </elements>
 </model>

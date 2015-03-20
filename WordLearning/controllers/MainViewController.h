@@ -8,9 +8,18 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface MainViewController : NSViewController<NSAlertDelegate, NSTableViewDelegate, NSTableViewDataSource>
+#import "DatabaseHandler.h"
+#import "AddWordViewController.h"
+#import "ClickableTableHeaderView.h"
+
+@interface MainViewController : NSViewController<NSAlertDelegate, NSTableViewDelegate, NSTableViewDataSource, DismissViewProtocol, TableHeaderViewDelegate>
 
 @property (weak) IBOutlet NSTableView *tableView;
+@property (strong, nonatomic) Dictionary *dictionary;
+@property (strong, nonatomic) NSMutableArray *tuples;
+- (IBAction)editRowAction:(id)sender;
+- (IBAction)deleteRowAction:(id)sender;
 
+@property (weak) IBOutlet ClickableTableHeaderView *headerView;
 - (IBAction)addNewWord:(id)sender;
 @end

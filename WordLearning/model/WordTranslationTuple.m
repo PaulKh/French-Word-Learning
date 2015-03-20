@@ -2,7 +2,7 @@
 //  WordTranslationTuple.m
 //  WordLearning
 //
-//  Created by Khvorostov on 16/03/15.
+//  Created by Khvorostov on 17/03/15.
 //  Copyright (c) 2015 Khvorostov. All rights reserved.
 //
 
@@ -18,7 +18,7 @@
 @dynamic numberOfTrainings;
 @dynamic wordDescription;
 @dynamic type;
-@dynamic lastTrainingDate;
+@dynamic lastTrainingDay;
 @dynamic dictionary;
 @dynamic translations;
 @dynamic word;

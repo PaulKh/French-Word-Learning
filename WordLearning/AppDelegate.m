@@ -9,12 +9,6 @@
 #import "AppDelegate.h"
 #import "DataBaseInitiator.h"
 
-@interface AppDelegate ()
-
-- (IBAction)saveAction:(id)sender;
-
-@end
-
 @implementation AppDelegate
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {

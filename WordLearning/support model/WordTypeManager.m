@@ -11,7 +11,6 @@
 @implementation WordTypeManager
 
 static WordTypeManager *instance;
-NSMutableArray *wordTypes;
 
 +(WordTypeManager *) instance{
     if (instance == nil) {
@@ -22,20 +21,21 @@ NSMutableArray *wordTypes;
 -(id)init{
     self = [super init];
     if (self) {
-        NSArray *types = @[@"Verb",@"Noun",@"Adjective",@"Adverb",@"Function word",@"Phrasal verb", @"Not set"];
-        wordTypes = [[NSMutableArray alloc] init];
-        for (int i = 0; i < types.count - 1; i++) {
-            [wordTypes addObject:[[WordType alloc] initWordTypeWithTypeName:types[i] representativeId:i]];
+        self.types = @[@"Not set", @"Verb",@"Noun",@"Adjective",@"Adverb",@"Function word",@"Phrasal verb", @"Phrase"];
+        self.wordTypes = [[NSMutableArray alloc] init];
+        for (int i = 0; i < self.types.count; i++) {
+            WordType *wordType = [[WordType alloc] initWordTypeWithTypeName:self.types[i] representativeId:i];
+            [self.wordTypes addObject:wordType];
         }
-        self.defaultWordType = wordTypes[wordTypes.count - 1];
+        self.defaultWordType = self.wordTypes[self.wordTypes.count - 1];
     }
     return self;
 }
 
 -(WordType *)wordTypeById:(int)idRepresentedInDB{
-    for (int i = 0; i < wordTypes.count; i++) {
-        if (idRepresentedInDB == ((WordType *)wordTypes[i]).number) {
-            return ((WordType *)wordTypes[i]);
+    for (int i = 0; i < self.wordTypes.count; i++) {
+        if (idRepresentedInDB == ((WordType *)self.wordTypes[i]).number) {
+            return ((WordType *)self.wordTypes[i]);
         }
     }
     return self.defaultWordType;
@@ -43,16 +43,18 @@ NSMutableArray *wordTypes;
 }
 
 -(WordType *)wordTypeByName:(NSString *)name{
-    for (int i = 0; i < wordTypes.count; i++) {
-        if ([name isEqualToString:((WordType *)wordTypes[i]).name]) {
-            return ((WordType *)wordTypes[i]);
+    for (int i = 0; i < self.wordTypes.count; i++) {
+        if ([name isEqualToString:((WordType *)self.wordTypes[i]).name]) {
+            return ((WordType *)self.wordTypes[i]);
         }
     }
     return self.defaultWordType;
 }
 
 -(NSArray *)allWordTypes{
-    return wordTypes;
+    return self.wordTypes;
 }
-
+-(NSArray *)allWordTypesTitles{
+    return self.types;
+}
 @end

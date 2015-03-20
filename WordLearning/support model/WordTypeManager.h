@@ -13,6 +13,10 @@
 -(WordType *)wordTypeById:(int)idRepresentedInDB;
 -(WordType *)wordTypeByName:(NSString *)name;
 -(NSArray *)allWordTypes;
+-(NSArray *)allWordTypesTitles;
++(WordTypeManager *)instance;
 
 @property (strong) WordType *defaultWordType;
+@property (strong) NSMutableArray *wordTypes;
+@property (strong) NSArray *types;
 @end

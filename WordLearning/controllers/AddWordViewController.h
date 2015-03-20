@@ -7,14 +7,30 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "DatabaseHandler.h"
+@protocol DismissViewProtocol <NSObject>
 
+- (void)didDismissModalView;
+
+@end
 @interface AddWordViewController : NSViewController
+@property (strong, nonatomic) Dictionary *dictionary;
+
 @property (weak) IBOutlet NSTextField *wordTextField;
 @property (weak) IBOutlet NSTextField *translationTextField;
-@property (unsafe_unretained) IBOutlet NSTextView *descriptionTextView;
+@property (strong) IBOutlet NSTextView *descriptionTextView;
 @property (weak) IBOutlet NSButton *addButton;
 
 @property (weak) IBOutlet NSPopUpButton *typeSelectionPopup;
 - (IBAction)cancelPressed:(id)sender;
 - (IBAction)addWordPressed:(id)sender;
+@property (weak) IBOutlet NSTextField *secondTranslationTextField;
+@property (weak) IBOutlet NSTextField *thirdTranslationTextField;
+@property (weak) IBOutlet NSTextField *forthTranslationTextField;
+@property (weak) IBOutlet NSTextField *fifthTranslationTextField;
+
+@property (strong) WordTranslationTuple *tupleToEdit;
+
+@property (weak) id<DismissViewProtocol> dismissDelegate;
+
 @end

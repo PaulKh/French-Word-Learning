@@ -2,7 +2,7 @@
 //  WordTranslationTuple.h
 //  WordLearning
 //
-//  Created by Khvorostov on 16/03/15.
+//  Created by Khvorostov on 17/03/15.
 //  Copyright (c) 2015 Khvorostov. All rights reserved.
 //
 
@@ -18,7 +18,7 @@
 @property (nonatomic, retain) NSNumber * numberOfTrainings;
 @property (nonatomic, retain) NSString * wordDescription;
 @property (nonatomic, retain) NSNumber * type;
-@property (nonatomic, retain) NSDate * lastTrainingDate;
+@property (nonatomic, retain) NSDate * lastTrainingDay;
 @property (nonatomic, retain) Dictionary *dictionary;
 @property (nonatomic, retain) NSSet *translations;
 @property (nonatomic, retain) Word *word;

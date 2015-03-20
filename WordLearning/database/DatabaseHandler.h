@@ -10,7 +10,7 @@
 #import "LanguageEnum.h"
 #import "Word.h"
 #import "Dictionary.h"
-#import "WordTypeManager.h"
+#import "WordType.h"
 #import "WordTranslationTuple.h"
 
 #import <CoreData/CoreData.h>
@@ -22,9 +22,13 @@
 
 -(WordTranslationTuple *)addNewTuple:(Word *)word
                         translations:(NSSet *)translations
-                            wordType:(WordTypeManager *)type
+                            wordType:(WordType *)type
                           dictionary:(Dictionary *)dictionary
                          description:(NSString *)description;
 -(void)saveContext;
++(DatabaseHandler *) instance;
+-(NSArray *)wordTuplesForDictionary:(Dictionary *)dictionary;
+-(NSArray *)dictionaries;
+-(void)deleteTuple:(WordTranslationTuple *)object;
 
 @end

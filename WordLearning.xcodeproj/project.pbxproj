@@ -26,11 +26,12 @@
 		DA4EC1E91AB0EE7D007CA651 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA4EC1E81AB0EE7D007CA651 /* CoreData.framework */; };
 		DA54C08D1AB63B4F00A854B5 /* add_button.png in Resources */ = {isa = PBXBuildFile; fileRef = DA54C08C1AB63B4F00A854B5 /* add_button.png */; };
 		DA54C0901AB762F100A854B5 /* AddWordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA54C08F1AB762F100A854B5 /* AddWordViewController.m */; };
-		DA54C0931AB776E900A854B5 /* WordTranslationTuple.m in Sources */ = {isa = PBXBuildFile; fileRef = DA54C0921AB776E900A854B5 /* WordTranslationTuple.m */; };
-		DA54C0961AB776EA00A854B5 /* Dictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = DA54C0951AB776EA00A854B5 /* Dictionary.m */; };
 		DA54C0A01AB7858600A854B5 /* WordTypeManager.m in Sources */ = {isa = PBXBuildFile; fileRef = DA54C09F1AB7858600A854B5 /* WordTypeManager.m */; };
-		DA54C0A31AB82A7300A854B5 /* Word.m in Sources */ = {isa = PBXBuildFile; fileRef = DA54C0A21AB82A7300A854B5 /* Word.m */; };
 		DA54C0A61AB8A31C00A854B5 /* WordType.m in Sources */ = {isa = PBXBuildFile; fileRef = DA54C0A51AB8A31C00A854B5 /* WordType.m */; };
+		DA54C0AC1AB8C0DA00A854B5 /* Dictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = DA54C0AB1AB8C0DA00A854B5 /* Dictionary.m */; };
+		DA54C0B21AB8C0DB00A854B5 /* WordTranslationTuple.m in Sources */ = {isa = PBXBuildFile; fileRef = DA54C0B11AB8C0DB00A854B5 /* WordTranslationTuple.m */; };
+		DA54C0B51AB97B8800A854B5 /* Word.m in Sources */ = {isa = PBXBuildFile; fileRef = DA54C0B41AB97B8800A854B5 /* Word.m */; };
+		DA54C0B81ABC71A300A854B5 /* ClickableTableHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = DA54C0B71ABC71A300A854B5 /* ClickableTableHeaderView.m */; };
 		DA7CECB31AB0F64D00A04C85 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA7CECB21AB0F64D00A04C85 /* MainViewController.m */; };
 /* End PBXBuildFile section */
 
@@ -89,17 +90,20 @@
 		DA54C08C1AB63B4F00A854B5 /* add_button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = add_button.png; path = resources/add_button.png; sourceTree = "<group>"; };
 		DA54C08E1AB762F100A854B5 /* AddWordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AddWordViewController.h; path = controllers/AddWordViewController.h; sourceTree = "<group>"; };
 		DA54C08F1AB762F100A854B5 /* AddWordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AddWordViewController.m; path = controllers/AddWordViewController.m; sourceTree = "<group>"; };
-		DA54C0911AB776E900A854B5 /* WordTranslationTuple.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WordTranslationTuple.h; path = model/WordTranslationTuple.h; sourceTree = "<group>"; };
-		DA54C0921AB776E900A854B5 /* WordTranslationTuple.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WordTranslationTuple.m; path = model/WordTranslationTuple.m; sourceTree = "<group>"; };
-		DA54C0941AB776EA00A854B5 /* Dictionary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Dictionary.h; path = model/Dictionary.h; sourceTree = "<group>"; };
-		DA54C0951AB776EA00A854B5 /* Dictionary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Dictionary.m; path = model/Dictionary.m; sourceTree = "<group>"; };
 		DA54C09C1AB77A7700A854B5 /* LanguageEnum.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = LanguageEnum.h; path = utils/LanguageEnum.h; sourceTree = "<group>"; };
 		DA54C09E1AB7858600A854B5 /* WordTypeManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WordTypeManager.h; path = "support model/WordTypeManager.h"; sourceTree = "<group>"; };
 		DA54C09F1AB7858600A854B5 /* WordTypeManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WordTypeManager.m; path = "support model/WordTypeManager.m"; sourceTree = "<group>"; };
-		DA54C0A11AB82A7300A854B5 /* Word.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Word.h; path = model/Word.h; sourceTree = "<group>"; };
-		DA54C0A21AB82A7300A854B5 /* Word.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Word.m; path = model/Word.m; sourceTree = "<group>"; };
 		DA54C0A41AB8A31C00A854B5 /* WordType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WordType.h; path = model/WordType.h; sourceTree = "<group>"; };
 		DA54C0A51AB8A31C00A854B5 /* WordType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WordType.m; path = model/WordType.m; sourceTree = "<group>"; };
+		DA54C0AA1AB8C0DA00A854B5 /* Dictionary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Dictionary.h; path = model/Dictionary.h; sourceTree = "<group>"; };
+		DA54C0AB1AB8C0DA00A854B5 /* Dictionary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Dictionary.m; path = model/Dictionary.m; sourceTree = "<group>"; };
+		DA54C0B01AB8C0DB00A854B5 /* WordTranslationTuple.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WordTranslationTuple.h; path = model/WordTranslationTuple.h; sourceTree = "<group>"; };
+		DA54C0B11AB8C0DB00A854B5 /* WordTranslationTuple.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WordTranslationTuple.m; path = model/WordTranslationTuple.m; sourceTree = "<group>"; };
+		DA54C0B31AB97B8800A854B5 /* Word.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Word.h; path = model/Word.h; sourceTree = "<group>"; };
+		DA54C0B41AB97B8800A854B5 /* Word.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Word.m; path = model/Word.m; sourceTree = "<group>"; };
+		DA54C0B61ABC71A300A854B5 /* ClickableTableHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ClickableTableHeaderView.h; path = views/ClickableTableHeaderView.h; sourceTree = "<group>"; };
+		DA54C0B71ABC71A300A854B5 /* ClickableTableHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ClickableTableHeaderView.m; path = views/ClickableTableHeaderView.m; sourceTree = "<group>"; };
+		DA54C0B91ABCA12000A854B5 /* SortOrder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SortOrder.h; path = utils/SortOrder.h; sourceTree = "<group>"; };
 		DA7CECB11AB0F64D00A04C85 /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MainViewController.h; path = controllers/MainViewController.h; sourceTree = "<group>"; };
 		DA7CECB21AB0F64D00A04C85 /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MainViewController.m; path = controllers/MainViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -207,14 +211,14 @@
 		DA349AAE1AACEB9D00E0FAFE /* model */ = {
 			isa = PBXGroup;
 			children = (
-				DA54C0A11AB82A7300A854B5 /* Word.h */,
-				DA54C0A21AB82A7300A854B5 /* Word.m */,
-				DA54C0941AB776EA00A854B5 /* Dictionary.h */,
-				DA54C0951AB776EA00A854B5 /* Dictionary.m */,
-				DA54C0911AB776E900A854B5 /* WordTranslationTuple.h */,
-				DA54C0921AB776E900A854B5 /* WordTranslationTuple.m */,
+				DA54C0B01AB8C0DB00A854B5 /* WordTranslationTuple.h */,
+				DA54C0B11AB8C0DB00A854B5 /* WordTranslationTuple.m */,
+				DA54C0AA1AB8C0DA00A854B5 /* Dictionary.h */,
+				DA54C0AB1AB8C0DA00A854B5 /* Dictionary.m */,
 				DA54C0A41AB8A31C00A854B5 /* WordType.h */,
 				DA54C0A51AB8A31C00A854B5 /* WordType.m */,
+				DA54C0B31AB97B8800A854B5 /* Word.h */,
+				DA54C0B41AB97B8800A854B5 /* Word.m */,
 			);
 			name = model;
 			sourceTree = "<group>";
@@ -251,6 +255,8 @@
 		DA4EC1DD1AAF9AB7007CA651 /* views */ = {
 			isa = PBXGroup;
 			children = (
+				DA54C0B61ABC71A300A854B5 /* ClickableTableHeaderView.h */,
+				DA54C0B71ABC71A300A854B5 /* ClickableTableHeaderView.m */,
 			);
 			name = views;
 			sourceTree = "<group>";
@@ -274,6 +280,7 @@
 			isa = PBXGroup;
 			children = (
 				DA54C09C1AB77A7700A854B5 /* LanguageEnum.h */,
+				DA54C0B91ABCA12000A854B5 /* SortOrder.h */,
 			);
 			name = enums;
 			sourceTree = "<group>";
@@ -393,18 +400,19 @@
 			files = (
 				DA349A8D1AACE51500E0FAFE /* WelcomeViewController.m in Sources */,
 				DA349A901AACE51500E0FAFE /* WordLearning.xcdatamodeld in Sources */,
-				DA54C0931AB776E900A854B5 /* WordTranslationTuple.m in Sources */,
 				DA54C0A61AB8A31C00A854B5 /* WordType.m in Sources */,
+				DA54C0AC1AB8C0DA00A854B5 /* Dictionary.m in Sources */,
 				DA4EC1E31AAFAB54007CA651 /* MainWindowController.m in Sources */,
+				DA54C0B21AB8C0DB00A854B5 /* WordTranslationTuple.m in Sources */,
 				DA349A8A1AACE51500E0FAFE /* main.m in Sources */,
-				DA54C0A31AB82A7300A854B5 /* Word.m in Sources */,
 				DA7CECB31AB0F64D00A04C85 /* MainViewController.m in Sources */,
 				DA349AD51AAE545000E0FAFE /* NSEntityDescription+RKAdditions.m in Sources */,
 				DA349AD91AAE5B6300E0FAFE /* DataBaseInitiator.m in Sources */,
 				DA349A881AACE51500E0FAFE /* AppDelegate.m in Sources */,
 				DA4EC1D51AAF355B007CA651 /* LanguageChosenSegue.m in Sources */,
-				DA54C0961AB776EA00A854B5 /* Dictionary.m in Sources */,
 				DA54C0901AB762F100A854B5 /* AddWordViewController.m in Sources */,
+				DA54C0B81ABC71A300A854B5 /* ClickableTableHeaderView.m in Sources */,
+				DA54C0B51AB97B8800A854B5 /* Word.m in Sources */,
 				DA54C0A01AB7858600A854B5 /* WordTypeManager.m in Sources */,
 				DA4EC1DB1AAF8DB2007CA651 /* DatabaseHandler.m in Sources */,
 			);

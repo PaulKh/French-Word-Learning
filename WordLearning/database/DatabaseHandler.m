@@ -10,7 +10,16 @@
 
 @implementation DatabaseHandler
 
--(Dictionary *)addNewDictionary:(NSString *)name;{
+static DatabaseHandler *instance;
+
++(DatabaseHandler *) instance{
+    if (instance == nil) {
+        instance =  [[self alloc] init];
+    }
+    return instance;
+}
+
+-(Dictionary *)addNewDictionary:(NSString *)name{
     NSManagedObjectContext *managedObjectContext = [[DataBaseInitiator instance] managedObjectContext];
     Dictionary *dictionary = [NSEntityDescription
                                        insertNewObjectForEntityForName:@"Dictionary"
@@ -33,7 +42,7 @@
 
 -(WordTranslationTuple *)addNewTuple:(Word *)word
                         translations:(NSSet *)translations
-                            wordType:(WordTypeManager *)type
+                            wordType:(WordType *)type
                           dictionary:(Dictionary *)dictionary
                          description:(NSString *)description{
     NSManagedObjectContext *managedObjectContext = [[DataBaseInitiator instance] managedObjectContext];
@@ -43,12 +52,13 @@
     wordTranslationTuple.word = word;
     wordTranslationTuple.translations = translations;
     wordTranslationTuple.wordDescription = description;
-    wordTranslationTuple.type = [type wordType];
-    
-    
-    
-    return dictionary;
-    
+    wordTranslationTuple.type = [[NSNumber alloc] initWithInt:type.number];
+    wordTranslationTuple.translations = translations;
+    wordTranslationTuple.createdAt = [NSDate date];
+    [dictionary addWordTranslationTupleObject:wordTranslationTuple];
+    [word setTuple:wordTranslationTuple];
+    [self saveContext];
+    return wordTranslationTuple;
 }
 -(void)saveContext{
     NSManagedObjectContext *managedObjectContext = [[DataBaseInitiator instance] managedObjectContext];
@@ -57,4 +67,42 @@
         NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
     }
 }
+-(NSArray *)dictionaries{
+    NSManagedObjectContext *context = [[DataBaseInitiator instance] managedObjectContext];
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription
+                                   entityForName:@"Dictionary" inManagedObjectContext:context];
+    [fetchRequest setEntity:entity];
+    NSArray *fetchedObjects = [context executeFetchRequest:fetchRequest error:nil];
+    return fetchedObjects;
+}
+-(NSArray *)wordTuplesForDictionary:(Dictionary *)dictionary{
+    NSManagedObjectContext *context = [[DataBaseInitiator instance] managedObjectContext];
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription
+                                   entityForName:@"WordTranslationTuple" inManagedObjectContext:context];
+    [fetchRequest setEntity:entity];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"dictionary.name == %@", dictionary.name];
+    [fetchRequest setPredicate:predicate];
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"createdAt" ascending:NO];
+    [fetchRequest setSortDescriptors:[NSArray arrayWithObject:sortDescriptor]];
+    NSArray *fetchedObjects = [context executeFetchRequest:fetchRequest error:nil];
+    return fetchedObjects;
+    
+}
+
+- (void) deleteTuple:(WordTranslationTuple *)object{
+    NSManagedObjectContext *context = [[DataBaseInitiator instance] managedObjectContext];
+    for (NSManagedObject *translation in object.translations) {
+        [context deleteObject:translation];
+    }
+    [context deleteObject:object.word];
+    [context deleteObject:object];
+    [self saveContext];
+}
+
+
+
+
+
 @end

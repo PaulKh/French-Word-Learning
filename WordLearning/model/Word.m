@@ -2,7 +2,7 @@
 //  Word.m
 //  WordLearning
 //
-//  Created by Khvorostov on 17/03/15.
+//  Created by Khvorostov on 18/03/15.
 //  Copyright (c) 2015 Khvorostov. All rights reserved.
 //
 
@@ -15,5 +15,6 @@
 @dynamic language;
 @dynamic word;
 @dynamic translations;
+@dynamic tuple;
 
 @end
