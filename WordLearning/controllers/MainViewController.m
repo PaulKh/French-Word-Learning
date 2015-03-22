@@ -178,6 +178,7 @@ SortOrder sortOrder = Ascending;
         for (Word *word in tuple.translations) {
             translations = [[translations stringByAppendingString:word.word] stringByAppendingString:@"\n"];
         }
+        translations = [translations substringToIndex:translations.length - 1];
         if (translations != nil) {
             ((NSTextView *)[textView documentView]).string = translations;
         }

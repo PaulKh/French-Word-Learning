@@ -10,6 +10,7 @@
 
 @implementation ClickableTableHeaderView
 -(void)mouseDown:(NSEvent *)theEvent {
+    [super mouseDown:theEvent];
     NSInteger clickedColumn = [self columnAtPoint:[self convertPoint:theEvent.locationInWindow fromView:nil]];
 //    NSTableColumn *tableColumn = clickedColumn != -1 ? self.tableView.tableColumns[clickedColumn] : nil;
     [self.delegate clickOnTableColumn:(int)clickedColumn];
