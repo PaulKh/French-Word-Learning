@@ -21,7 +21,7 @@ static WordTypeManager *instance;
 -(id)init{
     self = [super init];
     if (self) {
-        self.types = @[@"Not set", @"Verb",@"Noun",@"Adjective",@"Adverb",@"Function word",@"Phrasal verb", @"Phrase"];
+        self.types = @[@"Not set", @"Verb",@"Noun",@"Adjective",@"Adverb",@"Function word",@"Phrasal verb", @"Phrase",@"Rule"];
         self.wordTypes = [[NSMutableArray alloc] init];
         for (int i = 0; i < self.types.count; i++) {
             WordType *wordType = [[WordType alloc] initWordTypeWithTypeName:self.types[i] representativeId:i];

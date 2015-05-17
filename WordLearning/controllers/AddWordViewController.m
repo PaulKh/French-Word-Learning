@@ -69,17 +69,23 @@ NSArray *wordTypes;
 }
 
 - (IBAction)addWordPressed:(id)sender {
-    NSString *word = [[self wordTextField] stringValue];
+    NSString *word = [[[self wordTextField] stringValue] stringByTrimmingCharactersInSet:
+    [NSCharacterSet whitespaceCharacterSet]];
     if (word == nil || word.length == 0) {
         [self showAlert:@"Please add a word"];
         return;
     }
     NSMutableArray *translations = [[NSMutableArray alloc] init];
-    NSString *transl1 = [self.translationTextField stringValue];
-    NSString *transl2 = [self.secondTranslationTextField stringValue];
-    NSString *transl3 = [self.thirdTranslationTextField stringValue];
-    NSString *transl4 = [self.forthTranslationTextField stringValue];
-    NSString *transl5 = [self.fifthTranslationTextField stringValue];
+    NSString *transl1 = [[self.translationTextField stringValue] stringByTrimmingCharactersInSet:
+    [NSCharacterSet whitespaceCharacterSet]];
+    NSString *transl2 = [[self.secondTranslationTextField stringValue] stringByTrimmingCharactersInSet:
+    [NSCharacterSet whitespaceCharacterSet]];
+    NSString *transl3 = [[self.thirdTranslationTextField stringValue] stringByTrimmingCharactersInSet:
+    [NSCharacterSet whitespaceCharacterSet]];
+    NSString *transl4 = [[self.forthTranslationTextField stringValue]stringByTrimmingCharactersInSet:
+    [NSCharacterSet whitespaceCharacterSet]];
+    NSString *transl5 = [[self.fifthTranslationTextField stringValue]stringByTrimmingCharactersInSet:
+    [NSCharacterSet whitespaceCharacterSet]];
     if (transl1 != nil && transl1.length != 0) {
         [translations addObject:transl1];
     }
@@ -107,7 +113,8 @@ NSArray *wordTypes;
     
     NSSet *translationsSet = [[NSSet alloc] init];
     translationsSet = [translationsSet setByAddingObjectsFromArray:translationsEntities];
-    [[DatabaseHandler instance] addNewTuple:wordEntity translations:translationsSet wordType:[[WordTypeManager instance] wordTypeByName:[wordTypes objectAtIndex:[self.typeSelectionPopup indexOfSelectedItem]]]   dictionary:self.dictionary description:[self.descriptionTextView string]];
+    [[DatabaseHandler instance] addNewTuple:wordEntity translations:translationsSet wordType:[[WordTypeManager instance] wordTypeByName:[wordTypes objectAtIndex:[self.typeSelectionPopup indexOfSelectedItem]]]   dictionary:self.dictionary description:[[self.descriptionTextView string] stringByTrimmingCharactersInSet:
+     [NSCharacterSet whitespaceAndNewlineCharacterSet]]];
     
     [self saveChanges];
     [self.dismissDelegate didDismissModalView];

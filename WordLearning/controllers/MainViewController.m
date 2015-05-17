@@ -23,7 +23,16 @@ SortOrder sortOrder = Ascending;
         self.dictionary = dicts[0];
         self.tuples =[NSMutableArray arrayWithArray:[[DatabaseHandler instance] wordTuplesForDictionary:self.dictionary]];
     }
+//    for (WordTranslationTuple *tuple in self.tuples) {
+//        tuple.word.word = [tuple.word.word stringByReplacingOccurrencesOfString:@"(n)" withString:@"(m)"];
+//    }
+//    [[DatabaseHandler instance] saveContext];
     [self.headerView setDelegate:self];
+    
+//    NSURL * documentsDirectory = [NSFileManager.defaultManager URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask].lastObject;
+//    NSURL *file = [documentsDirectory URLByAppendingPathComponent:@"contacts.xls"];
+//    NSString* string = @"<table><tr><td>FOO</td><td>BAR</td></tr></table>";
+//    [string writeToFile:file.path atomically:YES encoding:NSUTF8StringEncoding error:nil];
 }
 
 -(void)viewDidAppear{
@@ -45,8 +54,8 @@ SortOrder sortOrder = Ascending;
     }
     if (tableColumn == 1) {
         self.tuples = [NSMutableArray arrayWithArray:[self.tuples sortedArrayUsingComparator:^NSComparisonResult(id a, id b) {
-            NSString *firstName = [(WordTranslationTuple*)a word].word;
-            NSString *secondName = [(WordTranslationTuple*)b word].word;
+            NSString *firstName = [[(WordTranslationTuple*)a word].word lowercaseString];
+            NSString *secondName = [[(WordTranslationTuple*)b word].word lowercaseString];
             if(sortOrder == Ascending)
                 return [firstName compare:secondName];
             else return [secondName compare:firstName];
@@ -55,8 +64,8 @@ SortOrder sortOrder = Ascending;
     }
     else if (tableColumn == 3){
         self.tuples = [NSMutableArray arrayWithArray:[self.tuples sortedArrayUsingComparator:^NSComparisonResult(id a, id b) {
-            NSString *firstName = [[WordTypeManager instance] wordTypeById:[[(WordTranslationTuple*)a type] intValue]].name;
-            NSString *secondName = [[WordTypeManager instance] wordTypeById:[[(WordTranslationTuple*)b type] intValue]].name;
+            NSString *firstName = [[[WordTypeManager instance] wordTypeById:[[(WordTranslationTuple*)a type] intValue]].name lowercaseString];
+            NSString *secondName = [[[WordTypeManager instance] wordTypeById:[[(WordTranslationTuple*)b type] intValue]].name lowercaseString];
             if(sortOrder == Ascending)
                 return [firstName compare:secondName];
             else return [secondName compare:firstName];
