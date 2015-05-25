@@ -23,4 +23,13 @@
 @dynamic translations;
 @dynamic word;
 
+- (NSString *)allTranslationsInASingleString{
+    NSString *translations = @"";
+    for (Word *word in self.translations) {
+        translations = [[translations stringByAppendingString:word.word] stringByAppendingString:@"\n"];
+    }
+    //remove last enter
+    translations = [translations substringToIndex:translations.length - 1];
+    return translations;
+}
 @end

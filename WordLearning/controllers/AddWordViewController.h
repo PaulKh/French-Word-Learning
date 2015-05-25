@@ -8,11 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 #import "DatabaseHandler.h"
-@protocol DismissViewProtocol <NSObject>
-
-- (void)didDismissModalView;
-
-@end
+#import "DismissViewProtocol.h"
 @interface AddWordViewController : NSViewController
 @property (strong, nonatomic) Dictionary *dictionary;
 
@@ -20,6 +16,10 @@
 @property (weak) IBOutlet NSTextField *translationTextField;
 @property (strong) IBOutlet NSTextView *descriptionTextView;
 @property (weak) IBOutlet NSButton *addButton;
+@property (weak) IBOutlet NSButton *knowButton;
+@property (weak) IBOutlet NSButton *dontKnowButton;
+- (IBAction)knowPressed:(id)sender;
+- (IBAction)dontKnowPressed:(id)sender;
 
 @property (weak) IBOutlet NSPopUpButton *typeSelectionPopup;
 - (IBAction)cancelPressed:(id)sender;

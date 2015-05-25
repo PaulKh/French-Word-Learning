@@ -10,6 +10,8 @@
 #import "AddWordViewController.h"
 #import "WordTypeManager.h"
 #import "SortOrder.h"
+#import "LearningWordsPageController.h"
+#import "LearningHelper.h"
 @implementation MainViewController
 
 int sortedByColumnNumber = 4;
@@ -23,18 +25,18 @@ SortOrder sortOrder = Ascending;
         self.dictionary = dicts[0];
         self.tuples =[NSMutableArray arrayWithArray:[[DatabaseHandler instance] wordTuplesForDictionary:self.dictionary]];
     }
-//    for (WordTranslationTuple *tuple in self.tuples) {
-//        tuple.word.word = [tuple.word.word stringByReplacingOccurrencesOfString:@"(n)" withString:@"(m)"];
-//    }
-//    [[DatabaseHandler instance] saveContext];
     [self.headerView setDelegate:self];
-    
-//    NSURL * documentsDirectory = [NSFileManager.defaultManager URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask].lastObject;
-//    NSURL *file = [documentsDirectory URLByAppendingPathComponent:@"contacts.xls"];
-//    NSString* string = @"<table><tr><td>FOO</td><td>BAR</td></tr></table>";
-//    [string writeToFile:file.path atomically:YES encoding:NSUTF8StringEncoding error:nil];
+    [self.tableView setSelectionHighlightStyle: NSTableViewSelectionHighlightStyleNone];
+    [self updateTitle];
 }
-
+-(void)updateTitle{
+    int count = (int)[[self wordsToLearn] count];
+    [self.wordsToLearnLabel setStringValue:[NSString stringWithFormat:@"Words to learn: %d", count]];
+    if (count == 0) {
+        [self.learnButton setEnabled:NO];
+    }
+    else [self.learnButton setEnabled:YES];
+}
 -(void)viewDidAppear{
     [super viewDidAppear];
     if(![[NSUserDefaults standardUserDefaults] boolForKey:IS_FIRST_TIME_APPLICATION_USED_KEY]){
@@ -144,14 +146,46 @@ SortOrder sortOrder = Ascending;
     
 }
 
+- (IBAction)learnButtonPressed:(id)sender {
+    NSMutableArray *array = [self wordsToLearn];
+    if ([array count] != 0) {
+        [[LearningHelper instance] shuffle:array];
+        [self performSegueWithIdentifier:@"ToPageControllerSegueIdentifier" sender:array];
+    }
+}
+
 - (IBAction)addNewWord:(id)sender {
+}
+
+- (IBAction)updateWordsToLearnLabel:(id)sender {
+}
+
+- (IBAction)searchText:(id)sender {
+    NSString *string =  [self.searchTextField.stringValue stringByTrimmingCharactersInSet:
+                         [NSCharacterSet whitespaceCharacterSet]];
+    if ([string isEqualToString:@""]) {
+        self.filteredTuples = nil;
+    }
+    else{
+        self.filteredTuples = [[NSMutableArray alloc] init];
+        for (WordTranslationTuple *tuple in self.tuples) {
+            //remove accents
+            NSData *data = [tuple.word.word dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
+            NSString *newStr = [[NSString alloc] initWithData:data encoding:NSASCIIStringEncoding];
+            if ([newStr containsString:string]) {
+                [self.filteredTuples addObject:tuple];
+            }
+        }
+    }
+    [self.tableView reloadData];
 }
 // The only essential/required tableview dataSource method
 - (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView {
-    return self.tuples.count;
+    
+    return self.filteredTuples == nil ? self.tuples.count : self.filteredTuples.count;
 }
 - (CGFloat)tableView:(NSTableView *)tableView heightOfRow:(NSInteger)row {
-    WordTranslationTuple *tuple = [self.tuples objectAtIndex:row];
+    WordTranslationTuple *tuple = self.filteredTuples == nil ? [self.tuples objectAtIndex:row] : [self.filteredTuples objectAtIndex:row];
     int linesCounter = 1;
     for (int i = 0; i < tuple.wordDescription.length; i++) {
         if ([tuple.wordDescription characterAtIndex:i] == '\n') {
@@ -171,7 +205,7 @@ SortOrder sortOrder = Ascending;
     
     // In IB the tableColumn has the identifier set to the same string as the keys in our dictionary
     NSString *identifier = [tableColumn identifier];
-    WordTranslationTuple *tuple = [self.tuples objectAtIndex:row];
+    WordTranslationTuple *tuple = self.filteredTuples == nil ? [self.tuples objectAtIndex:row] : [self.filteredTuples objectAtIndex:row];
     if ([identifier isEqualToString:@"NumberId"]) {
         NSTextField *textField = [tableView makeViewWithIdentifier:identifier owner:self];
         textField.objectValue = [NSString stringWithFormat:@"%ld",row + 1];
@@ -183,11 +217,7 @@ SortOrder sortOrder = Ascending;
         return textField;
     } else if ([identifier isEqualToString:@"TranslationsId"]) {
         NSScrollView *textView = [tableView makeViewWithIdentifier:identifier owner:self];
-        NSString *translations = @"";
-        for (Word *word in tuple.translations) {
-            translations = [[translations stringByAppendingString:word.word] stringByAppendingString:@"\n"];
-        }
-        translations = [translations substringToIndex:translations.length - 1];
+        NSString *translations = [tuple allTranslationsInASingleString];
         if (translations != nil) {
             ((NSTextView *)[textView documentView]).string = translations;
         }
@@ -203,6 +233,10 @@ SortOrder sortOrder = Ascending;
         [df setDateFormat:@"dd MMM yyyy"];
 
         textField.stringValue = [df stringFromDate:tuple.createdAt];
+        return textField;
+    }else if([identifier isEqualToString:@"LearntId"]){
+        NSTextField *textField = [tableView makeViewWithIdentifier:identifier owner:self];
+        textField.objectValue = tuple.numberOfTrainings;
         return textField;
     }else if ([identifier isEqualToString:@"DescriptionId"]) {
         NSScrollView *textView = [tableView makeViewWithIdentifier:identifier owner:self];
@@ -225,11 +259,28 @@ SortOrder sortOrder = Ascending;
         ((AddWordViewController *)segue.destinationController).tupleToEdit = sender;
         ((AddWordViewController *)segue.destinationController).dismissDelegate = self;
         ((AddWordViewController *)segue.destinationController).dictionary = self.dictionary;
+    }else if([segue.identifier isEqualToString:@"ToPageControllerSegueIdentifier"]){
+                LearningWordsPageController *pageController = ((LearningWordsPageController *)segue.destinationController);
+        pageController.dismissDelegate = self;
+        [pageController setArrangedObjects:sender];
+        [pageController setTransitionStyle:NSPageControllerTransitionStyleStackBook];
+        [pageController setDelegate:pageController];
+        
     }
 }
 - (void)didDismissModalView{
     self.tuples = [NSMutableArray arrayWithArray:[[DatabaseHandler instance] wordTuplesForDictionary:self.dictionary]];
     [self.tableView reloadData];
+    [self updateTitle];
     return;
+}
+-(NSMutableArray *)wordsToLearn{
+    NSMutableArray *array = [[NSMutableArray alloc] init];
+    for (WordTranslationTuple *tuple in self.tuples) {
+        if ([[LearningHelper instance] isWordNeedToBeLearnt:tuple]) {
+            [array addObject:tuple];
+        }
+    }
+    return array;
 }
 @end

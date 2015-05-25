@@ -24,7 +24,8 @@
                         translations:(NSSet *)translations
                             wordType:(WordType *)type
                           dictionary:(Dictionary *)dictionary
-                         description:(NSString *)description;
+                         description:(NSString *)description
+                   numberOfLearnings:(int)numberOfLearnings;
 -(void)saveContext;
 +(DatabaseHandler *) instance;
 -(NSArray *)wordTuplesForDictionary:(Dictionary *)dictionary;

@@ -9,6 +9,7 @@
 #import "AddWordViewController.h"
 #import "WordTypeManager.h"
 #import "LanguageEnum.h"
+#import "LearningHelper.h"
 @interface AddWordViewController()
 
 -(void)showAlert:(NSString *)message;
@@ -54,6 +55,15 @@ NSArray *wordTypes;
                 [self.typeSelectionPopup selectItemAtIndex:[wordTypes indexOfObject:type]];
                 break;
             }
+        }
+        [self.knowButton setHidden:NO];
+        [self.dontKnowButton setHidden:NO];
+        NSInteger totalLearningsCount = [[[LearningHelper instance] daysBetweenRepeation] count];
+        if (totalLearningsCount  == [self.tupleToEdit.numberOfTrainings intValue]) {
+            [self.knowButton setEnabled:NO];
+        }
+        if ([self.tupleToEdit.numberOfTrainings intValue] == 0) {
+            [self.dontKnowButton setEnabled:NO];
         }
         
     }
@@ -110,11 +120,11 @@ NSArray *wordTypes;
     for (NSString *translation in translations) {
         [translationsEntities addObject:[[DatabaseHandler instance] addNewWord:translation language:English]];
     }
-    
+    int numberOfLearnings = (self.tupleToEdit == nil) ? 0 : [self.tupleToEdit.numberOfTrainings intValue];
     NSSet *translationsSet = [[NSSet alloc] init];
     translationsSet = [translationsSet setByAddingObjectsFromArray:translationsEntities];
     [[DatabaseHandler instance] addNewTuple:wordEntity translations:translationsSet wordType:[[WordTypeManager instance] wordTypeByName:[wordTypes objectAtIndex:[self.typeSelectionPopup indexOfSelectedItem]]]   dictionary:self.dictionary description:[[self.descriptionTextView string] stringByTrimmingCharactersInSet:
-     [NSCharacterSet whitespaceAndNewlineCharacterSet]]];
+     [NSCharacterSet whitespaceAndNewlineCharacterSet]] numberOfLearnings:numberOfLearnings];
     
     [self saveChanges];
     [self.dismissDelegate didDismissModalView];
@@ -133,4 +143,15 @@ NSArray *wordTypes;
     [alert runModal];
 }
 
+- (IBAction)knowPressed:(id)sender {
+    self.tupleToEdit.numberOfTrainings = [NSNumber numberWithInteger:[[[LearningHelper instance] daysBetweenRepeation] count] - 1];
+    [self.knowButton setEnabled:NO];
+    [self.dontKnowButton setEnabled:YES];
+}
+
+- (IBAction)dontKnowPressed:(id)sender {
+    self.tupleToEdit.numberOfTrainings = 0;
+    [self.knowButton setEnabled:YES];
+    [self.dontKnowButton setEnabled:NO];
+}
 @end

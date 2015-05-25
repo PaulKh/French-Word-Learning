@@ -44,7 +44,8 @@ static DatabaseHandler *instance;
                         translations:(NSSet *)translations
                             wordType:(WordType *)type
                           dictionary:(Dictionary *)dictionary
-                         description:(NSString *)description{
+                         description:(NSString *)description
+                   numberOfLearnings:(int)numberOfLearnings{
     NSManagedObjectContext *managedObjectContext = [[DataBaseInitiator instance] managedObjectContext];
     WordTranslationTuple *wordTranslationTuple = [NSEntityDescription
                               insertNewObjectForEntityForName:@"WordTranslationTuple"
@@ -55,6 +56,7 @@ static DatabaseHandler *instance;
     wordTranslationTuple.type = [[NSNumber alloc] initWithInt:type.number];
     wordTranslationTuple.translations = translations;
     wordTranslationTuple.createdAt = [NSDate date];
+    wordTranslationTuple.numberOfTrainings = [NSNumber numberWithInt:numberOfLearnings];
     [dictionary addWordTranslationTupleObject:wordTranslationTuple];
     [word setTuple:wordTranslationTuple];
     [self saveContext];

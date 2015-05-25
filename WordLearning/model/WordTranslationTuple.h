@@ -31,4 +31,6 @@
 - (void)addTranslations:(NSSet *)values;
 - (void)removeTranslations:(NSSet *)values;
 
+- (NSString *)allTranslationsInASingleString;
+
 @end
